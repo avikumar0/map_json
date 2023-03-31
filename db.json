@@ -1,0 +1,40 @@
+{
+    "employee": [
+      {
+        "name": "Marker 1, Smart Bengal Hackathon",
+        "email": "terds",
+        "roadtype": "Border roads",
+        "pincode": "7848",
+        "district": "a",
+        "state": "adfadfa",
+        "active": true,
+        "lat": 22.518,
+        "lng": 88.3832,
+        "id": 13
+      },
+      {
+        "name": "Marker 2, Smart Bengal Hackathon",
+        "email": "mail",
+        "roadtype": "National highways",
+        "pincode": "pincode3",
+        "district": "a",
+        "state": "qwert",
+        "active": true,
+        "lat": 22.518,
+        "lng": 88.3832,
+        "id": 14
+      },
+      {
+        "name": "Marker 3, Smart Bengal Hackathon",
+        "email": "test1",
+        "roadtype": "Rural roads",
+        "pincode": "test1",
+        "district": "b",
+        "state": "test1",
+        "active": true,
+        "lat": 22.518,
+        "lng": 88.3832,
+        "id": 16
+      }
+    ]
+  }

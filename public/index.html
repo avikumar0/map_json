@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+  <link rel="stylesheet" href="Leaflet.markercluster-master/src/MarkerCluster.css">
+  <link rel="stylesheet" href="Leaflet.markercluster-master/src/MarkerCluster.Default.css">
+  <script src="Leaflet.markercluster-master/dist/leaflet.markercluster-src.js"></script>
+  <script src="Leaflet.markercluster-master/src/MarkerCluster.js"></script>
+
+
+
+  <style>
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 170vh;
+      right: 0;
+    }
+    body{
+      background-color: rgb(194, 191, 191);
+    }
+
+  </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body >
+  <div id="map"></div>
+  <script src="marker.js"></script>
+ <div>
+  <h2>Apply Filter</h2>
+  <div id="filter">
+    <label for="district">Select District:</label>
+    <select id="district" onchange="filterMarkers()">
+      <option value="">All</option>
+      <option value="a">District A</option>
+      <option value="b">District B</option>
+      <option value="C">District C</option>
+    </select>
+  </div>
+  <br>
+  <div id="filter">
+    <label for="district">Select PIN code:</label>
+    <select id="district" onchange="filterMarkers()">
+      <option value="">All</option>
+      <option value="a">District A</option>
+      <option value="b">District B</option>
+      <option value="C">District C</option>
+    </select>
+  </div>
+  <br>
+  <div id="filter">
+    <label for="district">Select State:</label>
+    <select id="district" onchange="filterMarkers()">
+      <option value="">All</option>
+      <option value="a">District A</option>
+      <option value="b">District B</option>
+      <option value="C">District C</option>
+    </select>
+  </div>
+ </div>
+  <script>
+    function filterMarkers() {
+      fetch('http://localhost:3000/locations')
+        .then(response => response.json())
+        .then(data => {
+          // Get the selected district value
+          const district = document.getElementById("district").value;
+          markers.clearLayers();
+          let filteredMarkers;
+          if (district === "") {
+            filteredMarkers = data;
+          } else {
+            filteredMarkers = data.filter(marker => marker.properties.district === district);
+          }
+
+          // Filter markers with selected district
+
+
+          // Create a geoJSON layer with filtered markers
+          const markerLayer = L.geoJSON(filteredMarkers, {
+            onEachFeature: function (feature, layer) {
+              layer.bindPopup(feature.properties.district);
+            }
+          });
+
+          // Clear existing markers
+          markers.clearLayers();
+
+          // Add the geoJSON layer to the map
+          markers.addLayer(markerLayer);
+          map.addLayer(markers);
+        })
+        .catch(error => console.error(error));
+    }
+
+  </script>
+
+
+</body>
+
+</html>
